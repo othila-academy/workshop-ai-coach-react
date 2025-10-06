@@ -1,0 +1,561 @@
+/* ===== Variables & Thème Naturel ===== */
+:root {
+  /* Palette Naturelle & Chaleureuse */
+  --primary: #8B7355;        /* Terracotta/brun doux */
+  --primary-dark: #6B5744;
+  --primary-light: #A89080;
+  --secondary: #9CA986;      /* Vert sauge */
+  --accent: #D4A574;         /* Beige doré */
+  --success: #7BA05B;        /* Vert olive */
+  --warning: #D89B6A;        /* Orange terre */
+  --danger: #C67B5C;         /* Terracotta rosé */
+  
+  /* Couleurs naturelles */
+  --cream: #FAF8F5;
+  --sand: #F5F1ED;
+  --linen: #EDE8E3;
+  --stone: #DDD7D0;
+  --clay: #C4BAAE;
+  --earth: #9B8F82;
+  --bark: #6B5F54;
+  --forest: #4A4238;
+  --charcoal: #2D2822;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Fonts */
+  font-family: 'Georgia', 'Merriweather', 'Palatino', serif;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--charcoal);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Dégradé animé principal */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    #F5F1ED 0%,
+    #E8DDD4 20%,
+    #D4C4B8 40%,
+    #C9B8A4 60%,
+    #B8A890 80%,
+    #A89882 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animation de déplacement du dégradé */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Couche de couleurs organiques qui se déplacent */
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(156, 169, 134, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(212, 165, 116, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(139, 115, 85, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 20%, rgba(156, 169, 134, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 40%, rgba(212, 165, 116, 0.2) 0%, transparent 45%);
+  animation: colorWave 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animation de vague de couleurs */
+@keyframes colorWave {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(5%, -5%) rotate(5deg) scale(1.1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-3%, 5%) rotate(-3deg) scale(1.05);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translate(3%, 3%) rotate(3deg) scale(1.08);
+    opacity: 0.95;
+  }
+}
+
+/* ===== Container ===== */
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-md);
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Cards ===== */
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--linen);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-lg) 0;
+  box-shadow: 0 4px 16px rgba(107, 95, 84, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(107, 95, 84, 0.12);
+  border-color: var(--stone);
+}
+
+/* ===== Header ===== */
+header.card {
+  background: linear-gradient(
+    135deg,
+    var(--secondary) 0%,
+    var(--primary) 25%,
+    var(--accent) 50%,
+    var(--primary) 75%,
+    var(--secondary) 100%
+  );
+  background-size: 300% 300%;
+  animation: headerGradient 8s ease infinite;
+  border: 3px solid var(--primary-light);
+  color: var(--cream);
+  text-align: center;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animation du gradient du header */
+@keyframes headerGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+header.card::before {
+  content: '🌿';
+  position: absolute;
+  font-size: 8rem;
+  opacity: 0.15;
+  top: -20px;
+  right: -20px;
+  animation: leafFloat 6s ease-in-out infinite;
+}
+
+/* Animation de la feuille décorative */
+@keyframes leafFloat {
+  0%, 100% {
+    transform: rotate(-15deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-10deg) translateY(-10px);
+  }
+}
+
+header h1 {
+  font-size: 2.75rem;
+  font-weight: 400;
+  margin-bottom: var(--spacing-md);
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(45, 40, 34, 0.2);
+  font-style: italic;
+}
+
+header .muted {
+  color: var(--cream);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-style: normal;
+  line-height: 1.6;
+}
+
+/* ===== Titres de sections ===== */
+h2 {
+  font-size: 1.85rem;
+  font-weight: 400;
+  color: var(--primary-dark);
+  margin: var(--spacing-2xl) 0 var(--spacing-md) 0;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 3px solid var(--accent);
+  font-style: italic;
+  letter-spacing: 0.01em;
+  position: relative;
+  padding-left: var(--spacing-md);
+}
+
+h2::before {
+  content: '✦';
+  position: absolute;
+  left: -8px;
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* ===== Layout utilitaires ===== */
+.row {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+
+/* ===== Textes ===== */
+.muted {
+  color: var(--earth);
+  font-size: 0.95rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== Forms ===== */
+form.card {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--stone);
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: var(--bark);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+textarea,
+select,
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 2px solid var(--stone);
+  border-radius: var(--radius-md);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--cream);
+  color: var(--charcoal);
+  margin-top: var(--spacing-xs);
+}
+
+textarea:focus,
+select:focus,
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+textarea::placeholder,
+input::placeholder,
+select::placeholder {
+  color: var(--clay);
+  font-style: italic;
+}
+
+/* ===== Buttons ===== */
+button {
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--primary);
+  background: var(--primary);
+  color: var(--cream);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: var(--spacing-md) var(--spacing-xl);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(139, 115, 85, 0.2);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  width: 100%;
+  margin-top: var(--spacing-md);
+  letter-spacing: 0.02em;
+}
+
+button:hover:not(:disabled) {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button:disabled {
+  background: var(--clay);
+  border-color: var(--clay);
+  cursor: not-allowed;
+  color: var(--linen);
+  opacity: 0.6;
+}
+
+/* Boutons secondaires (petits boutons d'action) */
+button.secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9rem;
+  width: auto;
+  margin: 0;
+}
+
+button.secondary:hover:not(:disabled) {
+  background: var(--primary);
+  color: var(--cream);
+}
+
+/* Bouton danger */
+button.danger {
+  background: var(--danger);
+  border-color: var(--danger);
+  width: auto;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+button.danger:hover:not(:disabled) {
+  background: #A85F47;
+  border-color: #A85F47;
+}
+
+/* ===== Tags & Badges ===== */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--accent);
+  color: var(--charcoal);
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--primary-light);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== Lists ===== */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border: 2px solid var(--linen);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-md);
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  box-shadow: 0 2px 8px rgba(107, 95, 84, 0.06);
+}
+
+li:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(139, 115, 85, 0.12);
+  transform: translateX(6px);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+li strong {
+  color: var(--primary-dark);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+li > div {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+/* ===== États & Messages ===== */
+.empty-state {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border: 2px dashed var(--stone);
+  padding: var(--spacing-2xl);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--earth);
+  margin: var(--spacing-md) 0;
+}
+
+.empty-state::before {
+  content: "🌾";
+  display: block;
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.7;
+}
+
+.loading {
+  text-align: center;
+  padding: var(--spacing-xl);
+  font-size: 1.1rem;
+  color: var(--bark);
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--linen);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  margin: var(--spacing-md) 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.error {
+  background: rgba(198, 123, 92, 0.1);
+  border: 2px solid var(--danger);
+  color: var(--danger);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-md) 0;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card,
+li {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  :root {
+    font-size: 14px;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .container {
+    padding: var(--spacing-md);
+  }
+  
+  .card {
+    padding: var(--spacing-lg);
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  li > div {
+    width: 100%;
+  }
+  
+  button {
+    width: 100%;
+  }
+}

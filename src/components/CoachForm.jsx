@@ -1,12 +1,18 @@
 import { useState } from "react";
 
-// ✅ Étape 1 : Formulaire enrichi (catégorie, ton, contraintes)
-// TODO (Étape 2): validation 10–140 caractères + compteur restant
+// ✅ Étape 1 & 2 : Formulaire enrichi avec validation complète
 export default function CoachForm({ onGenerate, disabled }) {
   const [goal, setGoal] = useState("");
   const [category, setCategory] = useState("bien-etre");
   const [tone, setTone] = useState("bienveillant");
   const [constraints, setConstraints] = useState([]);
+
+  // Validation : 10-140 caractères
+  const MIN_CHARS = 10;
+  const MAX_CHARS = 140;
+  const goalLength = goal.trim().length;
+  const isValidLength = goalLength >= MIN_CHARS && goalLength <= MAX_CHARS;
+  const remaining = MAX_CHARS - goalLength;
 
   const handleConstraintChange = (constraint) => {
     setConstraints((prev) =>
@@ -18,9 +24,10 @@ export default function CoachForm({ onGenerate, disabled }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO (Étape 2): empêcher la soumission si invalide
+    if (!isValidLength) return;
+    
     onGenerate({ 
-      goal, 
+      goal: goal.trim(), 
       category, 
       tone, 
       constraints 
@@ -39,6 +46,16 @@ export default function CoachForm({ onGenerate, disabled }) {
           placeholder="Ex : M'organiser le matin pour être plus serein(e)"
           rows={3}
         />
+        <div style={{ 
+          marginTop: "0.5rem", 
+          fontSize: "0.875rem", 
+          color: remaining < 0 ? "var(--danger)" : "var(--earth)" 
+        }}>
+          {goalLength < MIN_CHARS && (
+            <span>Minimum {MIN_CHARS} caractères · </span>
+          )}
+          <span>{remaining} caractères restants</span>
+        </div>
       </label>
 
       <div className="row" style={{ marginTop: "1.25rem" }}>
@@ -128,7 +145,12 @@ export default function CoachForm({ onGenerate, disabled }) {
         </label>
       </fieldset>
 
-      <button disabled={disabled} type="submit">Générer</button>
+      <button 
+        disabled={disabled || !isValidLength} 
+        type="submit"
+      >
+        Générer {isValidLength ? "✨" : "⏳"}
+      </button>
     </form>
   );
 }

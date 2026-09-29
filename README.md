@@ -59,9 +59,9 @@ Dans `src/components/CoachForm.jsx` :
 - [x] À la soumission, inclure ces valeurs dans l'objet passé à `onGenerate`
 
 ### Étape 2 — Validation & UX
-- [ ] Limiter l'objectif à **10–140 caractères**
-- [ ] Afficher un **compteur de caractères restants**
-- [ ] Désactiver le bouton si invalide
+- [x] Limiter l'objectif à **10–140 caractères**
+- [x] Afficher un **compteur de caractères restants**
+- [x] Désactiver le bouton si invalide
 
 ### Étape 3 — Rendu des suggestions
 Dans `SuggestionsList.jsx` :

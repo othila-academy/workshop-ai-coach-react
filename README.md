@@ -82,9 +82,9 @@ Dans `src/api/llm.js` :
 
 ### Étape 6 — (Bonus) Persistance locale
 Dans `src/hooks/useLocalStorage.js` :
-- [ ] Lire la valeur depuis `localStorage` au montage (`JSON.parse`)
-- [ ] Sauvegarder la valeur à chaque modification (`JSON.stringify`)
-- [ ] Utiliser ce hook pour `saved` **et** (si vous voulez) `suggestions`
+- [x] Lire la valeur depuis `localStorage` au montage (`JSON.parse`)
+- [x] Sauvegarder la valeur à chaque modification (`JSON.stringify`)
+- [x] Utiliser ce hook pour `saved` **et** (si vous voulez) `suggestions`
 
 ---
 

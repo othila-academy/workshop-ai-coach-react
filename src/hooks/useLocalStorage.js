@@ -1,16 +1,25 @@
-// TODO (Étape 6): implémenter ce custom hook puis l'utiliser dans App.jsx
-// Signature attendue: const [val, setVal] = useLocalStorage(key, initialValue)
+// ✅ Étape 6 (Bonus) : Custom hook pour persister l'état dans localStorage
 import { useState, useEffect } from "react";
 
 export default function useLocalStorage(key, initialValue) {
-  const [val, setVal] = useState(initialValue);
+  // Initialisation : lecture depuis localStorage ou valeur par défaut
+  const [val, setVal] = useState(() => {
+    try {
+      const stored = localStorage.getItem(key);
+      return stored ? JSON.parse(stored) : initialValue;
+    } catch (error) {
+      console.error(`Erreur lecture localStorage (${key}):`, error);
+      return initialValue;
+    }
+  });
 
+  // Sauvegarde dans localStorage à chaque modification
   useEffect(() => {
-    // TODO: lire la valeur depuis localStorage au montage
-  }, [key]);
-
-  useEffect(() => {
-    // TODO: persister 'val' dans localStorage
+    try {
+      localStorage.setItem(key, JSON.stringify(val));
+    } catch (error) {
+      console.error(`Erreur écriture localStorage (${key}):`, error);
+    }
   }, [key, val]);
 
   return [val, setVal];

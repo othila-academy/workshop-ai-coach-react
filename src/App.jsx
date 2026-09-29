@@ -4,15 +4,16 @@ import CoachForm from "./components/CoachForm.jsx";
 import SuggestionsList from "./components/SuggestionsList.jsx";
 import SavedList from "./components/SavedList.jsx";
 import { generateSuggestions, generateSuggestionsMistral } from "./api/llm.js";
-// TODO (Étape 6): remplacer useState par un custom hook useLocalStorage
-// import useLocalStorage from "./hooks/useLocalStorage.js";
+// ✅ Étape 6 (Bonus) : Import du custom hook useLocalStorage
+import useLocalStorage from "./hooks/useLocalStorage.js";
 
 // ✅ Étape 5 (Bonus) : Détection automatique de la disponibilité de Mistral
 const MISTRAL_AVAILABLE = !!import.meta.env.VITE_MISTRAL_API_KEY;
 
 export default function App() {
   const [suggestions, setSuggestions] = useState([]);
-  const [saved, setSaved] = useState([]);
+  // ✅ Étape 6 (Bonus) : Persistance des favoris dans localStorage
+  const [saved, setSaved] = useLocalStorage("ai-coach-saved", []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 

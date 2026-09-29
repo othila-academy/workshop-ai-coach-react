@@ -65,9 +65,9 @@ Dans `src/components/CoachForm.jsx` :
 
 ### Étape 3 — Rendu des suggestions
 Dans `SuggestionsList.jsx` :
-- [ ] Remplacer la liste `<ul>` par des **cartes** (nouveau composant `SuggestionCard` ou style custom)
-- [ ] Afficher le `tag` (catégorie) sous forme de **badge**
-- [ ] Ajouter un état vide stylé (ex: “Aucune suggestion…”)
+- [x] Remplacer la liste `<ul>` par des **cartes** (nouveau composant `SuggestionCard` ou style custom)
+- [x] Afficher le `tag` (catégorie) sous forme de **badge**
+- [x] Ajouter un état vide stylé (ex: “Aucune suggestion…”)
 
 ### Étape 4 — Mock “un peu intelligent”
 Dans `src/api/llm.js` :

@@ -1,14 +1,28 @@
-// TODO (Étape 3): transformer ce rendu basique en cartes stylées (SuggestionCard)
+// ✅ Étape 3 : Affichage avec cartes stylées et état vide amélioré
+import SuggestionCard from "./SuggestionCard.jsx";
+
 export default function SuggestionsList({ suggestions, onSave }) {
-  if (!suggestions.length) return <p className="muted">Aucune suggestion pour l'instant.</p>;
+  if (!suggestions.length) {
+    return (
+      <div className="empty-state">
+        <p className="muted" style={{ margin: 0 }}>
+          Aucune suggestion pour l'instant. 
+          <br />
+          Remplissez le formulaire ci-dessus pour commencer ! 🌱
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <ul>
+    <div className="grid">
       {suggestions.map((s) => (
-        <li key={s.id}>
-          <strong>{s.title}</strong> — {s.body}
-          <div><button onClick={() => onSave(s)}>⭐ Sauvegarder</button></div>
-        </li>
+        <SuggestionCard 
+          key={s.id} 
+          suggestion={s} 
+          onSave={onSave} 
+        />
       ))}
-    </ul>
+    </div>
   );
 }

@@ -46,7 +46,6 @@ export default function App() {
       {error && <p className="muted">⚠️ {error}</p>}
 
       <h2>Suggestions</h2>
-      {/* TODO (Étape 3): afficher un état vide stylé quand il n'y a pas de suggestions */}
       <SuggestionsList suggestions={suggestions} onSave={handleSave} />
 
       <h2>Favoris</h2>

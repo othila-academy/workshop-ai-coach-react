@@ -76,9 +76,9 @@ Dans `src/api/llm.js` :
 - [x] Astuce: créer une petite fabrique de titres / phrases
 
 ### Étape 5 — (Bonus) Activer Mistral
-- [ ] Copier `.env.example` → `.env` et renseigner `VITE_MISTRAL_API_KEY`
-- [ ] Dans `App.jsx`, importer `generateSuggestionsMistral` et l'utiliser **à la place** de `generateSuggestions`
-- [ ] Gérer les erreurs réseau & afficher un loader
+- [x] Copier `.env.example` → `.env` et renseigner `VITE_MISTRAL_API_KEY`
+- [x] Dans `App.jsx`, importer `generateSuggestionsMistral` et l'utiliser **à la place** de `generateSuggestions`
+- [x] Gérer les erreurs réseau & afficher un loader
 
 ### Étape 6 — (Bonus) Persistance locale
 Dans `src/hooks/useLocalStorage.js` :

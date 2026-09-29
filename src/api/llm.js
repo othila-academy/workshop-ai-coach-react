@@ -1,6 +1,4 @@
 // ✅ Étape 4 : Mock intelligent avec 3 suggestions variées selon catégorie/ton/contraintes
-// TODO (Étape 5 - Bonus): brancher Mistral (voir README)
-
 const makeId = () => Math.random().toString(36).slice(2, 9);
 
 // Banques de conseils par catégorie
@@ -139,6 +137,106 @@ export async function generateSuggestions({ goal, category, tone, constraints })
     body: tip.body.replace("{goal}", `"${goal}"`) + constraintSuffix,
     tag: tip.tag
   }));
+}
+
+// ✅ Étape 5 (Bonus) : Intégration avec l'API Mistral
+export async function generateSuggestionsMistral({ goal, category, tone, constraints }) {
+  const key = import.meta.env.VITE_MISTRAL_API_KEY;
+  
+  if (!key) {
+    throw new Error(
+      "⚠️ Clé API Mistral manquante. Copiez .env.example vers .env et renseignez VITE_MISTRAL_API_KEY"
+    );
+  }
+
+  // Construction du prompt système avec contexte enrichi
+  const categoryLabel = category === "bien-etre" ? "bien-être et développement personnel" : "productivité et organisation";
+  const constraintsText = constraints.length > 0 
+    ? `Contraintes impératives : ${constraints.join(", ")}` 
+    : "Aucune contrainte particulière";
+
+  const systemPrompt = `Tu es un coach expert en ${categoryLabel}.
+Ton style de communication est ${tone}.
+${constraintsText}.
+
+Tu dois générer EXACTEMENT 3 conseils concrets, actionnables et personnalisés.
+Format JSON strict (tableau d'objets) :
+[
+  {
+    "title": "Titre court et impactant",
+    "body": "Conseil concret, personnalisé et actionnable (2-3 phrases max)",
+    "tag": "Catégorie du conseil"
+  }
+]
+
+Règles :
+- Conseils ultra-concrets et applicables immédiatement
+- Personnalisés selon l'objectif de l'utilisateur
+- Adaptés aux contraintes mentionnées
+- Variés dans leurs approches
+- JSON valide uniquement, sans texte avant/après`;
+
+  const userPrompt = `Objectif de l'utilisateur : "${goal}"
+
+Génère 3 conseils personnalisés en JSON.`;
+
+  try {
+    const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${key}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "mistral-small-latest", // Modèle plus performant que open-mistral-7b
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Erreur API Mistral (${response.status}): ${errorText}`);
+    }
+
+    const data = await response.json();
+    const content = data?.choices?.[0]?.message?.content ?? "[]";
+
+    // Nettoyage du contenu (parfois l'IA ajoute des backticks markdown)
+    const cleanContent = content
+      .replace(/```json\n?/g, "")
+      .replace(/```\n?/g, "")
+      .trim();
+
+    let parsed;
+    try {
+      parsed = JSON.parse(cleanContent);
+    } catch (parseError) {
+      console.error("Erreur de parsing JSON:", cleanContent);
+      throw new Error("Réponse Mistral invalide. Passage en mode mock.");
+    }
+
+    // Validation et formatage
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      throw new Error("Format de réponse inattendu de Mistral.");
+    }
+
+    return parsed.slice(0, 3).map((tip) => ({
+      id: makeId(),
+      title: tip.title || "Conseil",
+      body: tip.body || "Conseil généré par IA",
+      tag: tip.tag || "🤖 IA"
+    }));
+
+  } catch (error) {
+    console.error("Erreur Mistral:", error);
+    // En cas d'erreur, on peut soit propager l'erreur, soit fallback sur le mock
+    throw error;
+  }
 }
 
 // Exemple pour la suite (bonus) — à activer quand prêt :

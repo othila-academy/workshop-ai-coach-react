@@ -71,9 +71,9 @@ Dans `SuggestionsList.jsx` :
 
 ### Étape 4 — Mock “un peu intelligent”
 Dans `src/api/llm.js` :
-- [ ] Retourner **3 suggestions** (au lieu d’1)
-- [ ] Varier le contenu selon **catégorie**, **ton** et **contraintes**
-- [ ] Astuce: créer une petite fabrique de titres / phrases
+- [x] Retourner **3 suggestions** (au lieu d’1)
+- [x] Varier le contenu selon **catégorie**, **ton** et **contraintes**
+- [x] Astuce: créer une petite fabrique de titres / phrases
 
 ### Étape 5 — (Bonus) Activer Mistral
 - [ ] Copier `.env.example` → `.env` et renseigner `VITE_MISTRAL_API_KEY`

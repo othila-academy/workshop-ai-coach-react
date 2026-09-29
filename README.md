@@ -53,10 +53,10 @@ Ouvrez http://localhost:5173
 
 ### Étape 1 — Formulaire enrichi
 Dans `src/components/CoachForm.jsx` :
-- [ ] Ajouter un **select Catégorie** (bien‑être / productivité)
-- [ ] Ajouter un **select Ton** (bienveillant / direct / scientifique)
-- [ ] Ajouter des **checkbox Contraintes** (10 min/jour, sans matériel, budget 0 €)
-- [ ] À la soumission, inclure ces valeurs dans l'objet passé à `onGenerate`
+- [x] Ajouter un **select Catégorie** (bien‑être / productivité)
+- [x] Ajouter un **select Ton** (bienveillant / direct / scientifique)
+- [x] Ajouter des **checkbox Contraintes** (10 min/jour, sans matériel, budget 0 €)
+- [x] À la soumission, inclure ces valeurs dans l'objet passé à `onGenerate`
 
 ### Étape 2 — Validation & UX
 - [ ] Limiter l'objectif à **10–140 caractères**
